@@ -1,6 +1,6 @@
 use std::fs;
 
-const INPUT_PATH: &str = "./input.txt";
+const INPUT_PATH: &str = "./input1.txt";
 
 pub fn sum_calibration_values() -> u32 {
     let mut total = 0;
@@ -23,7 +23,7 @@ pub fn sum_calibration_values() -> u32 {
 } 
 
 fn pick_numbers(line: &str) -> u32 {
-    // the book ch 8.2(0), 13.2
+    // the book ch 8.2(0), 13.2(0)
     let numbers: Vec<char> = line.chars()
         .into_iter()
         .filter(|c| c.is_digit(10) )
