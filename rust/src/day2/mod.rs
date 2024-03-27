@@ -8,7 +8,9 @@ pub fn sum_game_ids() -> u32 {
     let mut total: u32 = 0;
 
     // step 1: read input
-    let input_string = fs::read_to_string(INPUT_PATH).expect("cannot read the file");
+    let input_string = fs::read_to_string(INPUT_PATH).unwrap_or_else(|error| {
+        panic!("{:?}", error);
+    });
 
     input_string.split("\n").into_iter().for_each(|line| {
         // step 2: parse each line(game)
@@ -26,7 +28,9 @@ fn parse_line(line: &str) -> u32 {
     // ch 8.3
     // regex crate: https://docs.rs/regex/latest/regex/
 
-    let re_line = Regex::new(r"Game (?<id>\d+): (?<balls>[a-z0-9\s,;]+)").expect("regex is incorrect");
+    let re_line = Regex::new(r"Game (?<id>\d+): (?<balls>[a-z0-9\s,;]+)").unwrap_or_else(|error| {
+        panic!("{:?}", error);
+    });
 
     let Some(cap) = re_line.captures(line) else {
         return 0;
@@ -35,12 +39,16 @@ fn parse_line(line: &str) -> u32 {
     let id = (&cap["id"]).parse::<u32>().expect("parsing id into u32 not successful");
     
     let balls = &cap["balls"];
-    let re_game = Regex::new(r"(?<count>\d+) (?<color>(red|blue|green))").expect("regex is incorrect");
+    let re_game = Regex::new(r"(?<count>\d+) (?<color>(red|blue|green))").unwrap_or_else(|error| {
+        panic!("{:?}", error);
+    });
 
     for game in balls.split("; ") {
         let mut map: HashMap<&str, u32> = HashMap::new();
         re_game.captures_iter(game).for_each(|caps| {
-            let count = caps.name("count").unwrap().as_str().parse::<u32>().expect("capturing count unsuccessful");
+            let count = caps.name("count").unwrap().as_str().parse::<u32>().unwrap_or_else(|error| {
+                panic!("{:?}", error);
+            });
             let color = caps.name("color").unwrap().as_str();
 
             let color_count = map.entry(color).or_insert(0u32);

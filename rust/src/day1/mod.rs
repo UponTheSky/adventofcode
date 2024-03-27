@@ -7,7 +7,9 @@ pub fn sum_calibration_values() -> u32 {
 
     // step 1: read the file
     // the book ch 12.2(0), 9.2
-    let file_string = fs::read_to_string(INPUT_PATH).expect("cannot read the file input");
+    let file_string = fs::read_to_string(INPUT_PATH).unwrap_or_else(|error| {
+        panic!("{:?}", error);
+    });
 
     // step 2: read the lines from the file
     // the book ch 13.1
