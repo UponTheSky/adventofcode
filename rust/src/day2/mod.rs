@@ -1,16 +1,14 @@
-use std::fs;
 use regex::Regex;
 use std::collections::HashMap;
+use crate::utils;
 
-const INPUT_PATH: &str = "./input2.txt";
+const INPUT_PATH: &str = "inputs/ch2.txt";
 
 pub fn sum_game_ids() -> u32 {
     let mut total: u32 = 0;
 
     // step 1: read input
-    let input_string = fs::read_to_string(INPUT_PATH).unwrap_or_else(|error| {
-        panic!("{:?}", error);
-    });
+    let input_string = utils::read_input_file(INPUT_PATH);
 
     input_string.split("\n").into_iter().for_each(|line| {
         // step 2: parse each line(game)
