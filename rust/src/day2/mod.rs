@@ -10,7 +10,7 @@ pub fn sum_game_ids() -> u32 {
     // step 1: read input
     let input_string = utils::read_input_file(INPUT_PATH);
 
-    input_string.split("\n").into_iter().for_each(|line| {
+    input_string.lines().into_iter().for_each(|line| {
         // step 2: parse each line(game)
         let game_id = parse_line(line);
 
