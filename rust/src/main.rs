@@ -3,6 +3,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() {
     // day1
@@ -15,5 +16,8 @@ fn main() {
     // println!("day 3 answer: {}", day3::sum_engine_schematic());
     
     // day4
-    println!("day 4 answer: {}", day4::total_card_points())
+    // println!("day 4 answer: {}", day4::total_card_points())
+
+    // day5
+    println!("day 5 answer: {}", day5::lowest_location_number())
 }
