@@ -4,17 +4,27 @@ use regex::Regex;
 pub fn total_winning_cases() -> u64 {
     let input_string = utils::read_input_file("./inputs/day6.txt");
     let mut lines = input_string.lines();
-    
+
     let times = parse_number_line(lines.next().unwrap());
     let distances = parse_number_line(lines.next().unwrap()); 
     let mut total_count: u64 = 1;
-
-    for i in 0..times.len() {
-        let time = times[i];
-        let distance = distances[i];
+    
+    // part 1
+    // for i in 0..times.len() {
+    //     let time = times[i];
+    //     let distance = distances[i];
         
-        total_count *= count_winning_cases(time, distance);
-    }
+    //     total_count *= count_winning_cases(time, distance);
+    // }
+
+    
+    // part 2
+    let single_time_vec: Vec<String> = times.into_iter().map(|num| num.to_string()).collect();
+    let single_time = single_time_vec.join("").parse::<u64>().unwrap();
+    let single_dist_vec: Vec<String> = distances.into_iter().map(|num| num.to_string()).collect();
+    let single_dist = single_dist_vec.join("").parse::<u64>().unwrap();
+
+    total_count = count_winning_cases(single_time, single_dist);
 
     total_count
 }
