@@ -3,7 +3,7 @@ use regex::Regex;
 
 const INPUT_PATH: &str = "inputs/day1_part2.txt";
 
-pub fn sum_calibration_values() -> u32 {
+pub fn sum_calibration_values() -> u64 {
     let mut total = 0;
 
     // step 1: read the file
@@ -24,7 +24,7 @@ pub fn sum_calibration_values() -> u32 {
     total
 } 
 
-fn pick_numbers(line: &str) -> u32 {
+fn pick_numbers(line: &str) -> u64 {
     // the book ch 8.2(0), 13.2(0)
     let numbers: Vec<char> = line.chars()
         .into_iter()
@@ -38,10 +38,10 @@ fn pick_numbers(line: &str) -> u32 {
     let first = numbers.first().expect(format!("no numbers in the line: {}", line).as_str());
     let last = numbers.last().expect(format!("no numbers in the line: {}", line).as_str());
 
-    format!("{}{}", first, last).parse::<u32>().unwrap()
+    format!("{}{}", first, last).parse::<u64>().unwrap()
 } 
 
-fn pick_number_part2(line: &str) -> u32 {
+fn pick_number_part2(line: &str) -> u64 {
     let re = Regex::new(r"(one|two|three|four|five|six|seven|eight|nine|\d)").unwrap();
     let re_back = Regex::new(r"^.+(one|two|three|four|five|six|seven|eight|nine|\d)").unwrap();
 
@@ -49,14 +49,14 @@ fn pick_number_part2(line: &str) -> u32 {
 
     if let Some(capture) = re_back.captures(line) {
         let (_, [last]) = capture.extract();
-        return format!("{}{}", convert_number(first), convert_number(last)).parse::<u32>().unwrap();
+        return format!("{}{}", convert_number(first), convert_number(last)).parse::<u64>().unwrap();
     }
     
-    return format!("{}{}", convert_number(first), convert_number(first)).parse::<u32>().unwrap(); 
+    return format!("{}{}", convert_number(first), convert_number(first)).parse::<u64>().unwrap(); 
 }
 
 
-fn convert_number(number: &str) -> u32 {
+fn convert_number(number: &str) -> u64 {
     match number {
         "one" => 1,
         "two" => 2,
@@ -70,7 +70,8 @@ fn convert_number(number: &str) -> u32 {
         _ => {
             let c: char = number.chars().next().unwrap();
             if c.is_digit(10) {
-                return c.to_digit(10).unwrap();
+                let num = c.to_digit(10).unwrap();
+                return num.try_into().unwrap();
             }
 
             return 0;

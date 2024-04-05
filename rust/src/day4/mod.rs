@@ -4,8 +4,8 @@ use crate::utils;
 
 
 
-pub fn total_card_points() -> u32 {
-    let mut total_score: u32 = 0;
+pub fn total_card_points() -> u64 {
+    let mut total_score: u64 = 0;
 
     // step 1: parse the input into strings
     let input_string = utils::read_input_file("./inputs/ch4.txt");
@@ -15,18 +15,18 @@ pub fn total_card_points() -> u32 {
         let (win_nums, my_nums) = parse_line_into_two_sets(line);
 
         // step 3: run set intersection operation to find the number of matches
-        let matches_count: u32 = win_nums.intersection(&my_nums).count().try_into().unwrap();
+        let matches_count: u64 = win_nums.intersection(&my_nums).count().try_into().unwrap();
 
         // step 4: calculate the score
         if matches_count > 0 {
-            total_score += 2u32.pow(matches_count - 1);
+            total_score += 2u64.pow(matches_count as u32 - 1);
         }
     });
 
     total_score
 } 
 
-fn parse_line_into_two_sets(line: &str) -> (HashSet<u32>, HashSet<u32>) {
+fn parse_line_into_two_sets(line: &str) -> (HashSet<u64>, HashSet<u64>) {
     let re = Regex::new(r"^Card\s+\d+: (?<win_nums>[\d\s]+) \| (?<my_nums>[\d\s]+)").expect("regex build unsuccessful");
     let cap = re.captures(line).unwrap();
     let win_nums_str = cap.name("win_nums").unwrap().as_str();
@@ -34,12 +34,12 @@ fn parse_line_into_two_sets(line: &str) -> (HashSet<u32>, HashSet<u32>) {
 
     let mut win_nums = HashSet::new();
     win_nums_str.split_whitespace().into_iter().for_each(|n| {
-        win_nums.insert(n.parse::<u32>().unwrap());
+        win_nums.insert(n.parse::<u64>().unwrap());
     });
 
     let mut my_nums = HashSet::new();
     my_nums_str.split_whitespace().into_iter().for_each(|n| {
-        my_nums.insert(n.parse::<u32>().unwrap());
+        my_nums.insert(n.parse::<u64>().unwrap());
     });
 
     (win_nums, my_nums)
