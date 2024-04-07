@@ -17,10 +17,10 @@ fn main() {
     // println!("day 3 answer: {}", day3::sum_engine_schematic());
     
     // day4
-    // println!("day 4 answer: {}", day4::total_card_points())
+    println!("day 4 answer: {}", day4::total_card_points())
 
     // day5
-    println!("day 5 answer: {}", day5::lowest_location_number())
+    // println!("day 5 answer: {}", day5::lowest_location_number())
 
     // day6
     // println!("day 6 answer: {}", day6::total_winning_cases())
