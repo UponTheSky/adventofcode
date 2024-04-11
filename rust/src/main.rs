@@ -7,6 +7,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 
 fn main() {
     // day1
@@ -31,5 +32,11 @@ fn main() {
     // println!("day 7 answer: {}", day7::sum_bids())
 
     // day 8 
-    println!("day 8 answer: {}", day8::steps_count())
+    // println!("day 8 answer: {}", day8::steps_count())
+
+    // day 9 
+    // println!("day 9 answer: {}", day9::sum_predicts());
+    
+    // day 10 
+    // println!("day 10 answer: {}", day9::sum_predicts());
 }
