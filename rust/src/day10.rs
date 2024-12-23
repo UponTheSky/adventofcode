@@ -11,7 +11,7 @@ pub fn farthest_steps() -> u64 {
 
     // part 2
 
-    count_enclosed_tiles(&mut mat)
+    count_enclosed_tiles(&mut mat, s_x, s_y)
 }
 
 fn parse_into_matrix(input_str: String) -> (Vec<Vec<char>>, (usize, usize)) {
@@ -185,31 +185,41 @@ fn find_next_step(mat: &mut Vec<Vec<char>>, curr: (i32, i32)) -> (i32, i32) {
     }
 }
 
-fn count_enclosed_tiles(mat: &mut Vec<Vec<char>>) -> u64 {
+fn count_enclosed_tiles(mat: &mut Vec<Vec<char>>, s_x: usize, s_y: usize) -> u64 {
+    let mut start = (0, 0);
+
+    // step1: find inner part of the loop
+}
+
+    // step2: count tiles using dfs
     let mut count = 0;
-
-    for x in 0..mat.len() {
-        let mut is_odd = 0;
-
-        for y in 0..mat[0].len() {
-            let cell = mat[x][y];
-
-            if cell == '#' {
-                // case 1: #(path of the loop)
-                is_odd ^= 1;
-            }
-
-            // case 2: cell == '.'
-            if cell == '.' {
-                if is_odd == 1 {
-                    dbg!(&x, &y);
-                    count += 1;
-                }
-            }
-        }
-    }
+    count_tiles(mat, start.0, start.1, &mut count);
 
     count
+}
+
+fn count_tiles(mat: &mut Vec<Vec<char>>, x: usize, y: usize, count: &mut u64) {
+    if x >= mat.len() || y >= mat[0].len() {
+        return;
+    }
+
+    if mat[x][y] == '#' {
+        return;
+    }
+
+    if mat[x][y] == '.' {
+        *count += 1;
+        mat[x][y] = '#';
+    }
+
+    count_tiles(mat, x + 1, y, count);
+    if x > 0 {
+        count_tiles(mat, x - 1, y, count);
+    }
+    count_tiles(mat, x, y + 1, count);
+    if y > 0 {
+        count_tiles(mat, x, y - 1, count);
+    }
 }
 
 #[cfg(test)]
