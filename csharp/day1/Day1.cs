@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic;
 
 namespace CSharp.Day1
 {
-    internal class Solution(string file)
+    internal class Solution(string file) : CSharp.BaseSolution(file)
     {
-        private readonly string file = file;
-
-        public int Run()
+        public override int Run()
         {
             IEnumerable<string> lines = ReadFrom(file);
-            Regex regex = new Regex(pattern: @"^(\d+)\s+(\d+)$", options: RegexOptions.Compiled);
+            Regex regex = new(pattern: @"^(\d+)\s+(\d+)$", options: RegexOptions.Compiled);
 
             List<int> firstArray = [];
             List<int> secondArray = [];
@@ -36,20 +31,7 @@ namespace CSharp.Day1
 
         }
 
-        static IEnumerable<string> ReadFrom(string file)
-        {
-            string? line;
-
-            using (var reader = File.OpenText(file))
-            {
-                while ((line = reader.ReadLine()) != null)
-                {
-                    yield return line;
-                }
-            }
-        }
-
-        private int PartOne(List<int> firstArray, List<int> secondArray)
+        private static int PartOne(List<int> firstArray, List<int> secondArray)
         {
             firstArray.Sort();
             secondArray.Sort();
@@ -57,7 +39,7 @@ namespace CSharp.Day1
             return firstArray.Zip(secondArray, (first, second) => Math.Abs(second - first)).Sum();
         }
 
-        private int PartTwo(List<int> firstArray, List<int> secondArray)
+        private static int PartTwo(List<int> firstArray, List<int> secondArray)
         {
             Dictionary<int, int> intMap = [];
 
