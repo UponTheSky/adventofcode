@@ -1,9 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace CSharp.Day2
 {
