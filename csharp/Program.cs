@@ -15,7 +15,7 @@
             }
 
             string file = args[0];
-            Day4.Solution solution = new(file);
+            Day5.Solution solution = new(file);
 
             Console.WriteLine(solution.Run());
         }

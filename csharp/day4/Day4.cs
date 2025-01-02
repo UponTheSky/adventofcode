@@ -37,8 +37,12 @@ namespace CSharp.Day4
             {
                 for (int j = 0; j < n; j++)
                 {
-                    if (matrix[i][j] == 'X' || matrix[i][j] == 'S')
+                    if (matrix[i][j] == 'M' || matrix[i][j] == 'S')
                     {
+                        if (IsXMas(matrix, i, j))
+                        {
+                            count++;
+                        }
                     }
                 }
             }
@@ -51,18 +55,16 @@ namespace CSharp.Day4
             int m = matrix.Count;
             int n = matrix[0].Count;
 
-            if (i >= m - 2 || j >= n - 2 || i < 0 || j < 0 || matrix[i][j] != 'X' || matrix[i][j] == 'S')
+            if (i >= m - 2 || j >= n - 2 || i < 0 || j < 0 || (matrix[i][j] != 'M' && matrix[i][j] != 'S'))
             {
                 return false;
             }
 
-            // from up-left to bottom-right; either MAS or SAM
+            string upToBottom = $"{matrix[i][j]}{matrix[i + 1][j + 1]}{matrix[i + 2][j + 2]}";
+            string bottomToUp = $"{matrix[i + 2][j]}{matrix[i + 1][j + 1]}{matrix[i][j + 2]}";
 
-            // from down-left to up-right; either MAS or SAM
-
-            return true;
+            return (upToBottom == "MAS" || upToBottom == "SAM") && (bottomToUp == "MAS" || bottomToUp == "SAM");
         }
-
 
         private static int PartOne(List<List<char>> matrix)
         {
